@@ -28,7 +28,7 @@ jobs:
           
       - id: checkmarxone-sast-step
         name: Checkmarx One SAST scan
-        uses: cloudbees-io-gha/checkmarxone-sast-publish@CBP-36894
+        uses: cloudbees-io-gha/checkmarxone-sast-publish@v1
         with:
           url: ${{ vars.CHECKMARXONE_URL }}
           tenant: ${{ vars.CHECKMARXONE_TENANT }}
