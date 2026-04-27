@@ -1,6 +1,7 @@
 name: checkmarxone-sast-gha
 
-on: [workflow_dispatch]
+on:
+  push:
 
 jobs:
   checkmarxone-sast-scan-job:
