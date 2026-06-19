@@ -46,20 +46,6 @@ jobs:
           workspace-dir: webrtc-repo
         uses: cloudbees-io/snyk-sast-plugin@v1
         name: Run Snyk Sast Scan
-      - with:
-          path: gosec-count
-          provider: github
-          repository: https://github.com/fintech-bank-1/gosec-count
-          ref: main
-        uses: cloudbees-io/checkout@v1
-        name: Chekout Component 2
-      - with:
-          snyk-token: b805f82c-36ef-4f7d-aee5-16bfaa718f75
-          org-id: cloudbees-compliance-partner-development
-          workspace-dir: gosec-count
-        uses: cloudbees-io/snyk-sast-plugin@v1
-        name: Run Snyk Sast Scan
-        id: snyk-sast-scan
       - name: Print Policy Subject
         uses: docker://alpine:3.20
         run: |
@@ -68,7 +54,7 @@ jobs:
     needs: checkout-and-sast-scan
     uses: cloudbees-io/policy-utils/.cloudbees/workflows/action.yaml@main
     with:
-      policy-id: cd130689-1f74-44d5-93f2-ce30ac3a87b0
+      policy-id: 0dc6dd18-9205-4343-a300-b25ec0cce570
       input-data: ${{ needs.checkout-and-sast-scan.outputs.policy-subject }}
     secrets: inherit
   policy-check-container-release-readiness:
@@ -77,7 +63,7 @@ jobs:
       - checkout-and-sast-scan
     uses: cloudbees-io/policy-utils/.cloudbees/workflows/action.yaml@main
     with:
-      policy-id: ae0cb15b-3513-4b55-8356-8e97fdd2f349
+      policy-id: 494af58d-ce4e-4a1c-a4cc-221dfdfced94/
       input-data: ${{ needs.checkout-and-sast-scan.outputs.policy-subject }}
     secrets: inherit
   create-release:
@@ -150,5 +136,5 @@ jobs:
       - policy-check-container-release-readiness
     uses: cloudbees-io/policy-utils/.cloudbees/workflows/action.yaml@main
     with:
-      policy-id: bc823709-b47f-4484-b791-b603ac66a0cf
+      policy-id: 494af58d-ce4e-4a1c-a4cc-221dfdfced94/
       input-data: ${{ needs.checkout-and-sast-scan.outputs.policy-subject }}
