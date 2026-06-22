@@ -137,5 +137,5 @@ jobs:
       - policy-check-container-release-readiness
     uses: cloudbees-io/policy-utils/.cloudbees/workflows/action.yaml@main
     with:
-      policy-id: 494af58d-ce4e-4a1c-a4cc-221dfdfced94/
+      policy-id: fcfe43c5-021f-46d8-826a-4267b1123200
       input-data: ${{ needs.checkout-and-sast-scan.outputs.policy-subject }}
