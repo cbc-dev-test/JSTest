@@ -46,7 +46,6 @@ jobs:
           workspace-dir: webrtc-repo
         uses: cloudbees-io/snyk-sast-plugin@v1
         name: Run Snyk Sast Scan
-        id: snyk-sast-scan
       - name: Print Policy Subject
         uses: docker://alpine:3.20
         run: |
@@ -64,7 +63,7 @@ jobs:
       - checkout-and-sast-scan
     uses: cloudbees-io/policy-utils/.cloudbees/workflows/action.yaml@main
     with:
-      policy-id: 494af58d-ce4e-4a1c-a4cc-221dfdfced94/
+      policy-id: 494af58d-ce4e-4a1c-a4cc-221dfdfced94
       input-data: ${{ needs.checkout-and-sast-scan.outputs.policy-subject }}
     secrets: inherit
   create-release:
