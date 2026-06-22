@@ -46,6 +46,7 @@ jobs:
           workspace-dir: webrtc-repo
         uses: cloudbees-io/snyk-sast-plugin@v1
         name: Run Snyk Sast Scan
+        id: snyk-sast-scan
       - name: Print Policy Subject
         uses: docker://alpine:3.20
         run: |
