@@ -31,7 +31,7 @@ metadata:
 jobs:
   checkout-and-sast-scan:
     outputs:
-      policy-subject: ${{ steps.step5.outputs.policy-subject }}
+      policy-subject: ${{ steps.step4.outputs.policy-subject }}
     steps:
       - with:
           provider: github
