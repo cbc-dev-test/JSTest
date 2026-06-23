@@ -31,7 +31,7 @@ metadata:
 jobs:
   checkout-and-sast-scan:
     outputs:
-      policy-subject: ${{ steps.snyk-sast-scan.outputs.policy-subject }}
+      policy-subject: ${{ steps.trivy-scan.outputs.policy-subject }}
     steps:
       - with:
           provider: github
@@ -51,11 +51,27 @@ jobs:
         uses: docker://alpine:3.20
         run: |
           echo "Policy Subject: ${{ steps.snyk-sast-scan.outputs.policy-subject }}"
+      - with:
+          url: ${{ vars.PE_JFROG_URL }}
+          username: ${{ vars.PE_JFROG_ACTIONS_USERNAME }}
+          password: ${{ secrets.PE_JFROG_ACTIONS_PASSWORD }}
+          file-path: /cloudbees/workspace/golang-alpine.tar
+          artifactory-path: test-generic-repo/jfrogtest/golang-alpine.tar
+        uses: cloudbees-io/jfrog-artifactory-download-file@v1
+        name: jfrog-actions-workflow-download
+      - with:
+          binary-tar-path: /cloudbees/workspace/golang-alpine.tar
+        uses: cloudbees-io/trivy-plugin@CBP-48900
+        name: trivy-scan
+      - run: |
+          echo "Policy Subject: ${{ steps.trivy-scan.outputs.policy-subject }}"
+        uses: docker://alpine:3.20
+        name: Print Trivy Policy Subject
   policy-check-release-readiness:
     needs: checkout-and-sast-scan
     uses: cloudbees-io/policy-utils/.cloudbees/workflows/action.yaml@main
     with:
-      policy-id: 0dc6dd18-9205-4343-a300-b25ec0cce570
+      policy-id: bb1715f3-b310-4ec7-bd29-99aa32f76368
       input-data: ${{ needs.checkout-and-sast-scan.outputs.policy-subject }}
     secrets: inherit
   policy-check-container-release-readiness:
@@ -64,7 +80,7 @@ jobs:
       - checkout-and-sast-scan
     uses: cloudbees-io/policy-utils/.cloudbees/workflows/action.yaml@main
     with:
-      policy-id: 494af58d-ce4e-4a1c-a4cc-221dfdfced94
+      policy-id: 94648670-7754-4d1e-8207-fa31504ad4e5
       input-data: ${{ needs.checkout-and-sast-scan.outputs.policy-subject }}
     secrets: inherit
   create-release:
