@@ -61,7 +61,7 @@ jobs:
         name: jfrog-actions-workflow-download
       - with:
           binary-tar-path: /cloudbees/workspace/golang-alpine.tar
-        uses: cloudbees-io/trivy-plugin@CBP-48900
+        uses: cloudbees-io/trivy-plugin@v1
         name: trivy-scan
       - run: |
           echo "Policy Subject: ${{ steps.trivy-scan.outputs.policy-subject }}"
