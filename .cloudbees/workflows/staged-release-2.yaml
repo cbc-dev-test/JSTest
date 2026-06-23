@@ -63,6 +63,7 @@ jobs:
           binary-tar-path: /cloudbees/workspace/golang-alpine.tar
         uses: cloudbees-io/trivy-plugin@v1
         name: trivy-scan
+        id: trivy-scan
       - run: |
           echo "Policy Subject: ${{ steps.trivy-scan.outputs.policy-subject }}"
         uses: docker://alpine:3.20
