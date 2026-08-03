@@ -35,8 +35,8 @@ jobs:
     with:
       checkpoint-type: stage
       input-data: ${{ needs.checkout-and-secret-scan.outputs.policy-subject }}
-      checkpoint-position: within
-      checkpoint-name: ${{ needs.checkout-and-secret-scan.outputs.policy-subject }}
+      checkpoint-position: entry
+      checkpoint-name: Initial
   policy-check-match-any:
     needs:
       - policy-check-secret-scan
