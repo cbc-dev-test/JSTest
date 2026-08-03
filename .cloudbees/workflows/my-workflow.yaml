@@ -35,7 +35,7 @@ jobs:
     with:
       checkpoint-type: stage
       input-data: ${{ needs.checkout-and-secret-scan.outputs.policy-subject }}
-      checkpoint-position: exit
+      checkpoint-position: entry
       checkpoint-name: ${{ needs.checkout-and-secret-scan.outputs.policy-subject }}
   policy-check-match-any:
     needs:
