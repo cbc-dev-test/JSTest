@@ -9,7 +9,7 @@ metadata:
       jobs:
         - checkout-and-secret-scan
         - policy-check-secret-scan
-    - name: Stage
+    - name: QA
       jobs:
         - policy-check-match-any
 jobs:
