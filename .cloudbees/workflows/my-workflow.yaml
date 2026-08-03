@@ -25,6 +25,7 @@ jobs:
         name: Checkout Component 1
       - uses: cloudbees-io/gitleaks-plugin@v1
         name: Run Gitleaks Scan
+        id: gitleaks-step
       - run: 'echo "Policy Subject: ${{ steps.gitleaks-step.outputs.policy-subject }}"'
         uses: docker://alpine:3.20
         name: Print Policy Subject
