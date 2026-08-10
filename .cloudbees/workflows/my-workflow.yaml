@@ -12,6 +12,9 @@ metadata:
     - name: QA
       jobs:
         - policy-check-match-any
+    - name: Test
+      jobs:
+        - job
 jobs:
   checkout-and-secret-scan:
     outputs:
@@ -47,3 +50,13 @@ jobs:
       input-data: ${{ needs.checkout-and-secret-scan.outputs.policy-subject }}
       checkpoint-position: exit
       checkpoint-name: QA
+  job:
+    needs:
+      - policy-check-match-any
+      - checkout-and-secret-scan
+    uses: cloudbees-io/policy-utils/.cloudbees/workflows/by-context.yaml@lt-test
+    with:
+      checkpoint-type: stage
+      input-data: ${{ needs.checkout-and-secret-scan.outputs.policy-subject }}
+      checkpoint-position: within
+      checkpoint-name: Test
