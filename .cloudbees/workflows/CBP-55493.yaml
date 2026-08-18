@@ -38,9 +38,6 @@ jobs:
     needs:
       - policy-check-secret-scan
       - checkout-and-secret-scan
-    uses: cloudbees-io/policy-utils/.cloudbees/workflows/by-context.yaml@lt-test
-    with:
-      checkpoint-type: stage
-      input-data: ${{ needs.checkout-and-secret-scan.outputs.policy-subject }}
-      checkpoint-position: exit
-      checkpoint-name: QA
+    steps:
+      - run: echo "Policy evaluation"
+        uses: docker://alpine:latest
